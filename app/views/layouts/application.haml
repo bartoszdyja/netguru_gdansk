@@ -7,15 +7,42 @@
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
+    %link{ :rel => "stylesheet", :type => "text/css", :href => "http://fonts.googleapis.com/css?family=Raleway:400,800,300" } 
+ 
 
   %body
     %nav.navbar.navbar-default
       .container-fluid
-        .navbar-header
-          %span.navbar-brand #{AppConfig.workshops_name}
-        %p.navbar-text.navbar-right
-          Links should go here
+        %p
+        -if user_signed_in?
+          .dropdown.navbar-text.navbar-right
+            %a.dropdown-toggle{"role" => "button", :id => "dropdownMenu1", "data-toggle" => "dropdown", "aria-expanded" =>"true"}
+              =current_user.firstname
+              %span.caret
+            %ul.dropdown-menu{"role" => "menu", "aria-labelledby" => "dropdownMenu1"}
+              %li{"role" => "presentation"}
+                %a{"role" => "menuitem", :tabindex => "-1", :href => "#"}
+                  Profile
+              %li{"role" => "presentation"}
+                %a{"role" => "menuitem", :tabindex => "-1", :href => destroy_user_session_path, "data-method" => :delete}
+                  Logout
+        -else
+          .navbar-text.navbar-right
+            =link_to "Sign In", new_user_session_path
+            \|
+            =link_to "Sign Up", new_user_registration_path
+              
+          
     .container-fluid
       .row
         .col-lg-12
-          = yield
+          .container
+            -if !flash.empty?
+              %p#notice=flash[:error] if flash[:error]
+              %p#notice=flash[:alert] if flash[:alert]
+              %p#notice=flash[:notice] if flash[:notice]
+            = yield
+    %footer.footer
+      %h3 
+        %b NETGURU
+        Gdansk Workshops 2015

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-	devise_for :users
+get '/categories/:category_id/products', to: 'categories#show'
+devise_for :users
   resources :categories do
     resources :products do
       resources :reviews

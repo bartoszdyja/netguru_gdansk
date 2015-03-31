@@ -1,9 +1,12 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy, :create]
   expose(:category)
   expose(:products)
   expose(:product)
   expose(:review) { Review.new }
   expose_decorated(:reviews, ancestor: :product)
+
+
 
   def index
   end
@@ -19,6 +22,7 @@ class ProductsController < ApplicationController
 
   def create
     self.product = Product.new(product_params)
+    self.product.user = current_user
 
     if product.save
       category.products << product
@@ -42,9 +46,13 @@ class ProductsController < ApplicationController
     redirect_to category_url(product.category), notice: 'Product was successfully destroyed.'
   end
 
+ 
+
   private
 
   def product_params
     params.require(:product).permit(:title, :description, :price, :category_id)
   end
+
+  
 end

@@ -1,19 +1,25 @@
-%h1 Listing categories
 
-%table.table
-  %tr
-    %th Name
-    %th
-    %th
-    %th
-
+.container
+  %h1 Categories
+  -if user_signed_in? && current_user.admin?
+    = link_to 'New Category', new_category_path
+  .clearfix
   - categories.each do |category|
-    %tr
-      %td= category.name
-      %td= link_to 'Show', category
-      %td= link_to 'Edit', edit_category_path(category)
-      %td= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }
+    .col-sm-4
+      .panel.panel-default
+        .cat
+          %h3=link_to category.name, category, {:class =>'title'}
+          .textbox
+            = link_to 'Show', category, :id => 'link-scale'
+            -if user_signed_in? && current_user.admin?
+              = link_to 'Edit', edit_category_path(category), :id => 'link-scale'
+              = link_to 'Destroy', category, :id => 'link-scale', method: :delete, data: { confirm: 'Are you sure?' }
+          %p#prod-count.pull-right 
+            =pluralize(category.products.count, 'product') 
+            inside
 
-%br
+  .clearfix
 
-= link_to 'New Category', new_category_path
+  
+
+      	

@@ -1,17 +1,46 @@
-%p#notice= notice
+.container	
 
-%p
-  %b Name:
-  = category.name
+	%h1
+		=category.name
 
-%p
-  - category.products.each do |product|
-    = product.title
 
-%p
-  %h3 New product
-  = render 'products/form'
+	%p
+	-if category.products.count>0
+		- category.products.each do |product|
+			.col-sm-12.al-left
+				%h2
+					=link_to product.title.upcase, category_product_path(category, product), :id => 'title'
+					-if product.reviews.count>0
+						=link_to category_product_path(category, product, :anchor => "review"), :id => 'reviews' do
+							%span.glyphicon.glyphicon-comment
+							=product.reviews.count
+					-else
+						=link_to category_product_path(category, product, :anchor => "review"), :id => 'reviews' do
+							Add first review
 
-= link_to 'Edit', edit_category_path(category)
-\|
-= link_to 'Back', categories_path, class: 'btn btn-primary'
+					.rating.pull-right 
+						-if product.average_rating
+							Rating 
+							=number_with_precision(product.average_rating, :precision =>2)
+				%p#desc= product.description.truncate(240, separator: /\s/, omission: '... (continued)'	)
+				%p.author
+					Added by
+					=link_to product.user.firstname, root_path
+					=time_ago_in_words(product.created_at)
+					ago
+				-if user_signed_in? && current_user==product.user
+					%p#footer-menu
+						= link_to 'Edit', edit_category_path(category)
+						\|
+						= link_to 'Destroy', edit_category_path(category)
+				%hr/
+	-else
+		%h2#title There aren't any products in this category yet. 
+
+	%p
+		%h3 New product
+		= render 'products/form'
+	-if user_signed_in?&&current_user.admin?
+		= link_to 'Edit', edit_category_path(category)
+		\|
+	= link_to 'Back', categories_path

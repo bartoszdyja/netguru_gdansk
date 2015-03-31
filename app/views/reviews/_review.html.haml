@@ -1,4 +1,10 @@
-%p= review.content
-%p
-  %b= review.rating
-  %em= review.author
+.review
+	.col-md-3#review_left
+		%p=review.author
+		%p.date=review.created_at.strftime("%d %B %Y")
+	.col-md-9
+		%p=review.content
+		.date
+			Rated: 
+			=review.rating
+

@@ -1,25 +1,40 @@
-%p#notice= notice
-%p#error= flash[:error]
 
-%p
-  %b Title:
+
+%h1.pull-left
   = product.title
-%p
-  %b Description:
+%p.pull-right#price
+  $
+  =number_with_precision(product.price, :precision => 2)
+.clearfix
+%p#description
   = product.description
-%p
-  %b Price:
-  = product.price
+%p.date
+  Product added on
+  = product.created_at.strftime("%A, #{product.created_at.day.ordinalize} %B ")
+  %br/
+  by
+  =link_to product.user.firstname
+-if user_signed_in? && current_user==product.user 
+  = link_to 'Edit', edit_category_product_path(category.id, product.id)
+  \|
+= link_to 'Back', category_products_path
+%hr/
+#review
+  %h2 
+    Reviews (
+    =number_with_precision(product.average_rating, precision: 2)  
+    \)
+  = render reviews
 
-%p
-  %b Category
-  = product.category.name
+  
 
-%h3 Reviews
-= render 'reviews/form'
+-if user_signed_in?
+  = render 'reviews/form'
+-else
+  Sign in to add a review. 
+  %br/
 
-= render reviews
 
-= link_to 'Edit', edit_category_product_path(category.id, product.id)
-\|
-= link_to 'Back', category_products_path, class: 'btn btn-primary'
+
+
+
