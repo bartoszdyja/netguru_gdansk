@@ -2,6 +2,11 @@ class ReviewsController < ApplicationController
 
   expose(:review)
   expose(:product)
+  expose(:category)
+  expose_decorated(:reviews, ancestor: :product)
+
+  def new
+  end
 
   def edit
   end
@@ -14,7 +19,8 @@ class ReviewsController < ApplicationController
       product.reviews << review
       redirect_to category_product_url(product.category, product), notice: 'Review was successfully created.'
     else
-      redirect_to category_product_url(product.category, product), notice: 'Oops. There was an error. Please try again.'
+      render 'products/show'
+        
     end
   end
 

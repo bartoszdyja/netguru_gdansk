@@ -1,5 +1,3 @@
-
-
 %h1.pull-left
   = product.title
 %p.pull-right#price
@@ -9,9 +7,8 @@
 %p#description
   = product.description
 %p.date
-  Product added on
+  Listed on
   = product.created_at.strftime("%A, #{product.created_at.day.ordinalize} %B ")
-  %br/
   by
   =link_to product.user.firstname
 -if user_signed_in? && current_user==product.user 
@@ -20,21 +17,19 @@
 = link_to 'Back', category_products_path
 %hr/
 #review
-  %h2 
-    Reviews (
-    =number_with_precision(product.average_rating, precision: 2)  
-    \)
-  = render reviews
+  -if product.reviews.count>0 
+    %h2
+      Reviews (
+      =number_with_precision(product.average_rating, precision: 2)  
+      \)
+-if user_signed_in?
+  =link_to "Add new review", "#review", id: "comments-link", class: "btn btn-default"
+  #cmm= render 'reviews/form'
+
+-else
+  =link_to "Sign in to add a review", new_user_session_path 
+  %br/
+= render reviews.reverse
 
   
-
--if user_signed_in?
-  = render 'reviews/form'
--else
-  Sign in to add a review. 
-  %br/
-
-
-
-
 

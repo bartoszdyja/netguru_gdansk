@@ -5,6 +5,8 @@ html{
 
 }
 
+
+
 body{
 	background: linear-gradient(to bottom, #DDD 0%, rgba(225, 225, 225, 0) 30%, rgba(235, 235, 235, 0) 81%, #EEE 100%) repeat scroll 0% 0% #FFF;
 	font-family: "Raleway",Arial,sans-serif;
@@ -92,6 +94,9 @@ h3{
 	margin: 0;
 	font-size: 16px;
 	padding-top: 5px;
+	
+	
+
 }
 
 
@@ -244,4 +249,8 @@ padding-top: 10px;
 }
 .textbox {
 -webkit-transition: all 0.7s ease; transition: all 0.7s ease;
+}
+
+#cmm{
+	display: none;
 }
