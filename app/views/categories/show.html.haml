@@ -38,7 +38,7 @@
 		%h2#title There aren't any products in this category yet. 
 
 	
-	-if user_signed_in?&&current_user.admin?
+	-if user_signed_in?
 		%p
 			%h3 New product
 			= render 'products/form'

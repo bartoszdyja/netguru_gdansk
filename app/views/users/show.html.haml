@@ -1,0 +1,33 @@
+
+
+.input-group
+	%span.input-group-addon#basic-addon1 Firstname:
+	%span.input-group-addon#basic-addon2=user.firstname
+.input-group
+	%span.input-group-addon#basic-addon1 Lastname:
+	%span.input-group-addon#basic-addon2=user.lastname
+.input-group
+	%span.input-group-addon#basic-addon1 Email:
+	%span.input-group-addon#basic-addon2=user.email
+.input-group
+	%span.input-group-addon#basic-addon1 Joined:
+	%span.input-group-addon#basic-addon2=user.created_at.strftime("%d/%m/%Y")
+.input-group
+	%span.input-group-addon#basic-addon1 Products added:
+	%span.input-group-addon#basic-addon2=user.products.count
+.input-group
+	%span.input-group-addon#basic-addon1 Reviews added:
+	%span.input-group-addon#basic-addon2=user.reviews.count
+.input-group
+	%span.input-group-addon#basic-addon1 Recent reviews:
+	%span.input-group-addon#basic-addon2
+		-user.reviews.last(5).reverse.each do |u|
+			%p#left
+				#left=u.created_at.strftime("%d-%m-%y")
+				#left=u.content
+				#left=u.rating
+				 
+
+=link_to  "List all users", users_path, class: "btn btn-default"
+
+
