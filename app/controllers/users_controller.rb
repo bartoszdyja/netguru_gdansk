@@ -3,7 +3,6 @@ class UsersController < ApplicationController
 	expose :user
 	expose :reviews
 	def show
-		last_5 = reviews
 	end
 
 	def index
