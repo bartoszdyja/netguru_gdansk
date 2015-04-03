@@ -22,10 +22,10 @@
 						-if product.average_rating
 							Rating 
 							=number_with_precision(product.average_rating, :precision =>2)
-				%p#desc= product.description.truncate(240, separator: /\s/, omission: '... (continued)'	)
+				%p#desc=link_to product.description.truncate(240, separator: /\s/, omission: '... (continued)'), category_product_path(category, product)
 				%p.author
 					Added by
-					=link_to product.user.firstname, root_path
+					=link_to product.user.firstname, user_path(product.user)
 					=time_ago_in_words(product.created_at)
 					ago
 				-if user_signed_in? && current_user==product.user
