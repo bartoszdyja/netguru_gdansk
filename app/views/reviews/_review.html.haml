@@ -1,6 +1,6 @@
 .review
 	.col-md-3#review_left
-		%p=review.author
+		%p=link_to review.author, user_path(review.user)
 		%p.date=review.created_at.strftime("%d %B %Y")
 	.col-md-9
 		%p=review.content

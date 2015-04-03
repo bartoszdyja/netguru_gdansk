@@ -1,0 +1,23 @@
+%table.table.table-striped
+	%caption 
+		%h1 All users
+	%thead
+		%tr
+			%td Firstname
+			%td Lastname
+			%td Email
+			%td Joined
+			%td Products added
+			%td Reviews added
+			%td Admin
+	%tbody
+		-users.each do |u|
+			%tr
+				%td=link_to u.firstname, u
+				%td=link_to u.lastname, u
+				%td=link_to u.email, u
+				%td=link_to u.created_at.strftime("%d/%m/%Y"), u
+				%td=link_to u.products.count, u
+				%td=link_to u.reviews.count, u
+				%td=link_to (u.admin? ? ("<span class='glyphicon glyphicon-ok' aria-hidden='true'></span>").html_safe : ("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>").html_safe), u
+= link_to 'Home', root_path

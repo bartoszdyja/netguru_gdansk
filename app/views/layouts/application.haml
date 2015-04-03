@@ -1,6 +1,7 @@
 !!!
 %html{ lang: 'en' }
   %head
+    %title Netguru Gdansk Workshops
     %meta{ charset: 'utf-8' }/
     %meta{ content: 'IE=Edge,chrome=1', 'http-equiv' => 'X-UA-Compatible' }/
     %meta{ content: 'width=device-width, initial-scale=1.0', name: 'viewport' }/
@@ -21,7 +22,7 @@
               %span.caret
             %ul.dropdown-menu{"role" => "menu", "aria-labelledby" => "dropdownMenu1"}
               %li{"role" => "presentation"}
-                %a{"role" => "menuitem", :tabindex => "-1", :href => "#"}
+                %a{"role" => "menuitem", :tabindex => "-1", :href => user_path(current_user)}
                   Profile
               %li{"role" => "presentation"}
                 %a{"role" => "menuitem", :tabindex => "-1", :href => destroy_user_session_path, "data-method" => :delete}
