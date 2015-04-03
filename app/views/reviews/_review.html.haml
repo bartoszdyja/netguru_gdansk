@@ -4,7 +4,6 @@
 		%p.date=review.created_at.strftime("%d %B %Y")
 	.col-md-9
 		%p=review.content
-		.date
+		.date#rating
 			Rated: 
 			=review.rating
-
