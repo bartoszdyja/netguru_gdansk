@@ -12,7 +12,9 @@
   by
   =link_to product.user.firstname, user_path(product.user)
 -if user_signed_in? && current_user==product.user 
-  = link_to 'Edit', edit_category_product_path(category.id, product.id)
+  = link_to 'Edit', edit_category_product_path(category, product)
+  \|
+  = link_to 'Destroy', category_product_path(category, product), method: :delete, data: { confirm: 'Are you sure?' }
   \|
 = link_to 'Back', category_products_path
 %hr/
